@@ -2,6 +2,7 @@ import java.time.LocalDate;
 
 public abstract class Person {
     protected String name;
+    
     protected String email;
     protected int birthYear;
     protected int birthMonth;
