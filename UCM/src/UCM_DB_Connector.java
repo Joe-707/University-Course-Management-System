@@ -5,7 +5,7 @@ import java.sql.Connection;
 public class UCM_DB_Connector {
     private final String url = "jdbc:postgresql://localhost:5432/ucm";
     private final String user = "postgres";
-    private final String password = "Crossword25";
+    private final String password = "OpenSQL333!";
     Connection conn = null;
 
     public Connection getConnection() {

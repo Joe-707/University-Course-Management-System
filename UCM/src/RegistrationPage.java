@@ -22,10 +22,10 @@ public class RegistrationPage extends JFrame {
         registerButton = new JButton("Register");
         messageLabel = new JLabel("Please fill all the required fields");
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        messageLabel.setForeground(Color.RED);
-        messageLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        messageLabel.setVisible(true);
-        messageLabel.setSize(500,400);
+        messageLabel.setForeground(Color.BLACK);
+        messageLabel.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        messageLabel.setSize(900,800);
+        JOptionPane.showMessageDialog(null, messageLabel);
 
         setLayout(new GridLayout(8, 2, 10, 10));
 
@@ -48,6 +48,8 @@ public class RegistrationPage extends JFrame {
             if (registrationValidation()) {
                 messageLabel.setForeground(Color.GREEN);
                 messageLabel.setText("Registration Successful");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
             }
         });
     }
@@ -63,16 +65,22 @@ public class RegistrationPage extends JFrame {
             if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || password.isEmpty()) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Please fill all the required fields");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
                 return false;
             }
             if (!password.equals(confirmPassword)) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Passwords do not match");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
                 return false;
             }
             if(password.length() < 6) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Password must be at least 6 characters");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
                 return false;
             }
             return true;
