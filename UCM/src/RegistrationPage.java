@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class RegistrationPage extends JFrame {
     private JTextField fullNameField, emailField, phoneField, addressField;
@@ -29,12 +32,14 @@ public class RegistrationPage extends JFrame {
 
         setLayout(new GridLayout(8, 2, 10, 10));
 
+
+
+
+
         add(new JLabel("Full Name:"));
         add(fullNameField);
         add(new JLabel("Email:"));
         add(emailField);
-        add(new JLabel("Phone Number:"));
-        add(phoneField);
         add(new JLabel("Address:"));
         add(addressField);
         add(new JLabel("Password:"));
@@ -54,6 +59,8 @@ public class RegistrationPage extends JFrame {
         });
     }
 
+
+
         private boolean registrationValidation(){
             String fullName = fullNameField.getText();
             String email = emailField.getText();
@@ -62,7 +69,28 @@ public class RegistrationPage extends JFrame {
             String password = String.valueOf(passwordField.getPassword());
             String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
 
-            if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || password.isEmpty()) {
+            //Connection to db
+            Connection connect=null;
+            Statement stmt=null;
+            UCM_DB_Connector stdConn = new UCM_DB_Connector();
+            connect=stdConn.getConnection();
+            PreparedStatement pstmt=null;
+            try{
+                String query="insert into register(name,email,address,password) values(?,?,?,?)";
+                pstmt=connect.prepareStatement(query);
+                pstmt.setString(1,fullNameField.getText());
+                pstmt.setString(2,emailField.getText());
+                pstmt.setString(3,addressField.getText());
+                pstmt.setString(4,passwordField.getText());
+
+                pstmt.executeUpdate();
+                System.out.println("Register table updated");
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            if (fullName.isEmpty() || email.isEmpty() ||  address.isEmpty() || password.isEmpty()) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Please fill all the required fields");
                 messageLabel.setVisible(true);
