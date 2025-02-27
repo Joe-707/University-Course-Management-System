@@ -34,6 +34,10 @@ public class Insert_Student extends Person {
                 public int calculateAge() {
                     return super.calculateAge();
                 }
+                @Override
+                public void display() {
+                    super.display();
+                }
             };
             String query="insert into profile(name,birthYear,birthMonth,birthDay,age,email) values (?,?,?,?,?,?)";
             pstmt=connect.prepareStatement(query);
@@ -47,6 +51,8 @@ public class Insert_Student extends Person {
             pstmt.executeUpdate();
 
             System.out.println("Profile table updated");
+            std.display();
+
         }catch (Exception e){
             e.printStackTrace();
         }

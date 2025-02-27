@@ -54,6 +54,14 @@ public abstract class Person {
     public int getBirthDay() {
         return birthDay;
     }
+    public void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
+        System.out.println("Birth Year: " + birthYear);
+        System.out.println("Birth Month: " + birthMonth);
+        System.out.println("Birth Day: " + birthDay);
+
+    }
 }
 
 

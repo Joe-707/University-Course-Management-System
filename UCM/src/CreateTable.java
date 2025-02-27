@@ -8,10 +8,10 @@ public class CreateTable{
         UCM_DB_Connector stdConn = new UCM_DB_Connector();
         connect=stdConn.getConnection();
         try{
-            String query="create table course(courseId VARCHAR(4) primary key,course_name varchar(255),credits DECIMAL(1,2),coordinator varchar(100)) ";
+            String query="create table student(Id VARCHAR(4) primary key,unitId VARCHAR(4),instructorName VARCHAR(100),instructorEmail VARCHAR(100) ,instructorTelephone VARCHAR(4)) ";
             stmt=connect.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("NIGERENDAYOO!!");
+            System.out.println("NIGERUNDAYOO!!");
 
 
         } catch (Exception e){
