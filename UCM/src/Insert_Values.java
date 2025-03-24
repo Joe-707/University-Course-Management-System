@@ -1,20 +1,30 @@
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Insert_Student extends Person {
+public class Insert_Values extends Person implements Statistics {
     private int age=0;
-    public Insert_Student(String name, String email, int birthYear, int birthMonth, int birthDay) {
+    public Insert_Values(String name, String email, int birthYear, int birthMonth, int birthDay) {
         super(name, email, birthYear, birthMonth, birthDay);
         age=0;
     }
+    public double average(double a, double b, double c, double d, double e, double f,double g) {
+        return (a+b+c+d+e+f+g)/7;
+    }
+
+
     public static void main(String[] args) {
+
+
         Connection connect=null;
         Statement stmt=null;
         UCM_DB_Connector stdConn = new UCM_DB_Connector();
         connect=stdConn.getConnection();
         PreparedStatement pstmt=null;
+
+
 
 
         try{
@@ -23,6 +33,8 @@ public class Insert_Student extends Person {
             String std_name=sc.nextLine();
             System.out.println("Enter student email: ");
             String std_email=sc.nextLine();
+            System.out.println("Enter course id: ");
+            String course_id=sc.nextLine();
             System.out.println("Enter student birth year: ");
             int std_birthYear=sc.nextInt();
             System.out.println("Enter student birth month: ");
@@ -38,15 +50,17 @@ public class Insert_Student extends Person {
                 public void display() {
                     super.display();
                 }
+                public String getDOB() {
+                    return super.getDOB(birthYear,birthMonth,birthDay);
+                }
             };
-            String query="insert into profile(name,birthYear,birthMonth,birthDay,age,email) values (?,?,?,?,?,?)";
+            String query="insert into student(stdname,stdemail,courseid,dob,age,grade) values (?,?,?,?,?,?)";
             pstmt=connect.prepareStatement(query);
             pstmt.setString(1,std_name);
-            pstmt.setInt(2,std_birthYear);
-            pstmt.setInt(3,std_birthMonth);
-            pstmt.setInt(4,std_birthDay);
+            pstmt.setString(2,std_email);
+            pstmt.setString(3,course_id);
             pstmt.setInt(5,std.calculateAge());
-            pstmt.setString(6,std_email);
+
 
             pstmt.executeUpdate();
 

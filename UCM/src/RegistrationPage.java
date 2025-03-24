@@ -76,15 +76,20 @@ public class RegistrationPage extends JFrame {
             connect=stdConn.getConnection();
             PreparedStatement pstmt=null;
             try{
-                String query="insert into register(name,email,address,password) values(?,?,?,?)";
-                pstmt=connect.prepareStatement(query);
-                pstmt.setString(1,fullNameField.getText());
-                pstmt.setString(2,emailField.getText());
-                pstmt.setString(3,addressField.getText());
-                pstmt.setString(4,passwordField.getText());
+                if(!fullName.isEmpty()&&!email.isEmpty()&&!address.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
+                    String query="insert into register(name,email,address,password) values(?,?,?,?)";
+                    pstmt=connect.prepareStatement(query);
+                    pstmt.setString(1,fullNameField.getText());
+                    pstmt.setString(2,emailField.getText());
+                    pstmt.setString(3,addressField.getText());
+                    pstmt.setString(4,passwordField.getText());
 
-                pstmt.executeUpdate();
-                System.out.println("Register table updated");
+                    pstmt.executeUpdate();
+                    System.out.println("Register table updated");
+                }else {
+                    System.out.println("Register table not updated");
+                }
+
 
             } catch (Exception e){
                 e.printStackTrace();
