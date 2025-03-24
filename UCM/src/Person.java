@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Date;
 
 public abstract class Person {
     protected String name;
@@ -53,6 +54,13 @@ public abstract class Person {
     }
     public int getBirthDay() {
         return birthDay;
+    }
+    public String getDOB(int year, int month, int day) {
+        this.birthYear = year;
+        this.birthMonth = month;
+        this.birthDay = day;
+        String dob = year + "-" + month + "-" + day;
+        return dob;
     }
     public void display() {
         System.out.println("Name: " + name);
