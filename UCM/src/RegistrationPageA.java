@@ -50,15 +50,6 @@ public class RegistrationPageA extends JFrame {
         dobField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         dobField.setToolTipText("yyyy/mm/dd"); //Need to figure out how to get text in date format
 
-        courseIdLabel = new JLabel("Course Id:");
-        courseIdLabel.setForeground(Color.WHITE);
-        courseIdLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        courseIdLabel.setBounds(75, 300, 100, 35);
-
-        courseIdField = new JTextField(50);
-        courseIdField.setBounds(225, 300, 250, 35);
-        courseIdField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
-
         passwordLabel = new JLabel("Password:");
         passwordLabel.setForeground(Color.WHITE);
         passwordLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
@@ -88,7 +79,7 @@ public class RegistrationPageA extends JFrame {
         registerButton.setRolloverEnabled(true);
         registerButton.setFocusPainted(false);
 
-        logoIcon = new ImageIcon("mamaslogo2.png");
+        logoIcon = new ImageIcon("images/mamaslogo2.png");
         logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(540, 140, 300, 300);
 
@@ -117,8 +108,6 @@ public class RegistrationPageA extends JFrame {
         frame.add(emailField);
         frame.add(dobLabel);
         frame.add(dobField);
-        frame.add(courseIdLabel);
-        frame.add(courseIdField);
         frame.add(passwordLabel);
         frame.add(passwordField);
         frame.add(confirmPasswordLabel);
@@ -144,7 +133,6 @@ public class RegistrationPageA extends JFrame {
     private boolean registrationValidation(){
         String fullName = fullNameField.getText();
         String email = emailField.getText();
-        String courseId = courseIdField.getText();
         String password = String.valueOf(passwordField.getPassword());
         String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
 
@@ -156,17 +144,21 @@ public class RegistrationPageA extends JFrame {
         PreparedStatement pstmt=null;
         try{
             if(!fullName.isEmpty()&&!email.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
-                String query="insert into register(name,email,address,password) values(?,?,?,?)";
+                String query="insert into admin(adminname,adminemail,password,dob) values(?,?,?,?)";
                 pstmt=connect.prepareStatement(query);
                 pstmt.setString(1,fullNameField.getText());
                 pstmt.setString(2,emailField.getText());
-                pstmt.setString(3,addressField.getText());
-                pstmt.setString(4,passwordField.getText());
+                pstmt.setString(3,passwordField.getText());
+                String dobText = dobField.getText(); // assuming "yyyy-MM-dd" format
+                DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                java.util.Date utilDate = formatter.parse(dobText);
+                pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
+
 
                 pstmt.executeUpdate();
-                System.out.println("Register table updated");
+                System.out.println("Admin table updated");
             }else {
-                System.out.println("Register table not updated");
+                System.out.println("Admin table not updated");
             }
 
 
@@ -174,7 +166,7 @@ public class RegistrationPageA extends JFrame {
             e.printStackTrace();
         }
 
-        if ( fullName.isEmpty() || email.isEmpty() || courseId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
+        if ( fullName.isEmpty() || email.isEmpty() ||  password.isEmpty() || confirmPassword.isEmpty() ) {
             messageLabel.setForeground(Color.RED);
             messageLabel.setText("Please fill all the required fields");
             messageLabel.setVisible(true);

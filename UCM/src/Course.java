@@ -8,7 +8,7 @@ public class Course {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.credits = credits;
-        this.instructorId = instructor;
+        this.instructorId = instructorId;
     }
     public void setCourseName(String courseName) {
         this.courseName = courseName;
