@@ -4,14 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Insert_Values extends Person implements Statistics {
+public class Insert_Values extends Person{
     private int age=0;
     public Insert_Values(String name, String email, int birthYear, int birthMonth, int birthDay) {
         super(name, email, birthYear, birthMonth, birthDay);
         age=0;
-    }
-    public double average(double a, double b, double c, double d, double e, double f,double g) {
-        return (a+b+c+d+e+f+g)/7;
     }
 
 

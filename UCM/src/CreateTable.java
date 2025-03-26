@@ -8,7 +8,7 @@ public class CreateTable{
         UCM_DB_Connector stdConn = new UCM_DB_Connector();
         connect=stdConn.getConnection();
         try{
-            String query="create table studentFeedback(feedbackId VARCHAR(4) primary key,stdId VARCHAR(4),stdComment TEXT)";
+            String query="create table ExamMarks(stdId TEXT primary key,courseid VARCHAR(4),grade NUMERIC(4,2),band VARCHAR(2))";
             stmt=connect.createStatement();
             stmt.executeUpdate(query);
             System.out.println("NIGERUNDAYOO!!");
