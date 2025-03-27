@@ -11,7 +11,7 @@ public class StudentMarksPage extends JFrame {
     private JTable table;
     private JLabel title, pageLabel;
     private ImageIcon pageIcon;
-    private JButton backButton;
+    private JButton backButton,addButton,deleteButton;
     private Object[][] fetchCourseData() {
         try {
             //Connection to db
@@ -55,6 +55,15 @@ public class StudentMarksPage extends JFrame {
         pageLabel.setSize(900, 506);
         pageLabel.setLocation(0, 0);
 
+        addButton = new JButton("Add Student");
+        addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addButton.setBounds(700, 330, 150, 30);
+        addButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        addButton.setBackground(new Color(0, 0, 0));
+        addButton.setForeground(Color.WHITE);
+        addButton.setRolloverEnabled(true);
+        addButton.setFocusPainted(false);
+
         backButton = new JButton("Back");
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.setBounds(765, 10, 80, 30);
@@ -63,6 +72,15 @@ public class StudentMarksPage extends JFrame {
         backButton.setForeground(Color.WHITE);
         backButton.setRolloverEnabled(true);
         backButton.setFocusPainted(false);
+
+        deleteButton = new JButton("Delete Student");
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deleteButton.setBounds(700, 390, 150, 30);
+        deleteButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        deleteButton.setBackground(new Color(0, 0, 0));
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setRolloverEnabled(true);
+        deleteButton.setFocusPainted(false);
 
 
         JFrame frame = new JFrame();
@@ -107,12 +125,26 @@ public class StudentMarksPage extends JFrame {
         frame.add(scrollPane);
         frame.add(title);
         frame.add(pageLabel);
+        pageLabel.add(addButton);
         pageLabel.add(backButton);
+        pageLabel.add(deleteButton);
         frame.setVisible(true);
 
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                TablesPage back = new TablesPage();
+                frame.dispose();
+            }
+        });
+        addButton.addActionListener(e -> {
+            if (addButton.getText().equals("Add Student")) {
+                AddExamMarks add=new AddExamMarks();
+                frame.dispose();
+            }
+        });
+        deleteButton.addActionListener(e -> {
+            if (deleteButton.getText().equals("Delete Student")) {
+                DeletePage delete=new DeletePage("Delete Marks","Student ID","Delete Marks","Deleted Marks","exammarks","stdid",".Back");
+
             }
         });
 

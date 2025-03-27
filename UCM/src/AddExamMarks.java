@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Enrollments extends JFrame {
-    private JTextField stdIdField, courseIdField,gradeField,adminIdField;
+public class AddExamMarks extends JFrame {
+    private JTextField stdIdField, courseIdField,gradeField,bandField;
     private JButton registerButton,backButton;
-    private JLabel title, messageLabel,gradeLabel, stdIdLabel, courseIdLabel, adminIdLabel,logoLabel;
+    private JLabel title, messageLabel,gradeLabel, stdIdLabel, courseIdLabel, bandLabel,logoLabel;
     private ImageIcon logoIcon;
 
-    public Enrollments() {
+    public AddExamMarks() {
 
-        title = new JLabel("Enroll Student");
+        title = new JLabel("Input Exam Marks");
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
         title.setBounds(330, 50, 300, 35);
@@ -46,17 +46,7 @@ public class Enrollments extends JFrame {
         courseIdField.setBounds(225, 250, 250, 35);
         courseIdField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
 
-        adminIdLabel = new JLabel("Admin Id:");
-        adminIdLabel.setForeground(Color.WHITE);
-        adminIdLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        adminIdLabel.setBounds(75, 300, 100, 35);
-
-        adminIdField = new JTextField(50);
-        adminIdField.setBounds(225, 300, 250, 35);
-        adminIdField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
-
-
-        registerButton = new JButton("Enroll");
+        registerButton = new JButton("Add");
         registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         registerButton.setBounds(400, 500, 150, 50);
         registerButton.setFont(new Font("SanSerif", Font.BOLD, 16));
@@ -88,7 +78,7 @@ public class Enrollments extends JFrame {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Enroll Student");
+        frame.setTitle("Add Exam Marks");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setBounds(0, 0, 900, 600);
         frame.setResizable(false);
@@ -103,8 +93,6 @@ public class Enrollments extends JFrame {
         frame.add(courseIdField);
         frame.add(gradeLabel);
         frame.add(gradeField);
-        frame.add(adminIdLabel);
-        frame.add(adminIdField);
         frame.add(registerButton);
         frame.add(backButton);
         frame.add(title);
@@ -114,14 +102,14 @@ public class Enrollments extends JFrame {
         registerButton.addActionListener(e -> {
             if (registrationValidation()) {
                 messageLabel.setForeground(Color.GREEN);
-                messageLabel.setText("Student Enrolled");
+                messageLabel.setText("Added Marks ");
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
             }
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                EnrollmentPage back = new EnrollmentPage();
+                StudentMarksPage back = new StudentMarksPage();
                 frame.dispose();
             }
         });
@@ -131,7 +119,6 @@ public class Enrollments extends JFrame {
         String stdId = stdIdField.getText();
         String grade = gradeField.getText();
         String courseId = courseIdField.getText();
-        String adminId = adminIdField.getText();
 
         //Connection to db
         Connection connect=null;
@@ -140,7 +127,7 @@ public class Enrollments extends JFrame {
         connect=stdConn.getConnection();
         PreparedStatement pstmt=null;
         try{
-            if(!stdId.isEmpty()&&!grade.isEmpty()&&!courseId.isEmpty()&&!adminId.isEmpty()){
+            if(!stdId.isEmpty()&&!grade.isEmpty()&&!courseId.isEmpty()){
                 double dGrade = Double.parseDouble(grade);
 
                 //Does Course Exist?
@@ -174,36 +161,32 @@ public class Enrollments extends JFrame {
                 }
 
 
-                //Admin Check
-                String adminQuery="select adminid from admin where adminid=?";
-                PreparedStatement adminCheck=connect.prepareStatement(adminQuery);
-                adminCheck.setString(1, adminId);
-                ResultSet a_rs=adminCheck.executeQuery();
-
-                if(!a_rs.next()){
-                    messageLabel.setForeground(Color.RED);
-                    messageLabel.setText("Admin Not Found");
-                    messageLabel.setVisible(true);
-                    JOptionPane.showMessageDialog(null, messageLabel);
-                    System.out.println("Admin ID does not exist");
-                    return false;
-                }
-
                 String insertQuery="insert into enrollments(stdid,courseid,grade,adminid) values(?,?,?,?)";
                 pstmt=connect.prepareStatement(insertQuery);
                 pstmt.setString(1,stdId);
                 pstmt.setDouble(3,dGrade);
                 pstmt.setString(2,courseId);
-                pstmt.setString(4,adminId);
+                if(dGrade>=70){
+                    pstmt.setString(4,"A");
+                }else if(dGrade>=60){
+                    pstmt.setString(4,"B");
+                }else if(dGrade>=50){
+                    pstmt.setString(4,"C");
+                }else if(dGrade>=40){
+                    pstmt.setString(4,"D");
+                }
+                else{
+                    pstmt.setString(4,"Fail");
+                }
                 pstmt.executeUpdate();
 
-                System.out.println("Enrollments table updated");
+                System.out.println("Exam Table updated");
             }else {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Please fill all the required fields");
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
-                System.out.println("Enrollments table not updated");
+                System.out.println("Exam table not updated");
                 return false;
             }
 
@@ -219,10 +202,11 @@ public class Enrollments extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Enrollments();
+                new AddExamMarks();
             }
         });
     }
 }
+
 
 

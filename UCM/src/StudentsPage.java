@@ -139,6 +139,7 @@ public class StudentsPage {
         addButton.addActionListener(e -> {
             if (addButton.getText().equals("Add Student")) {
                 AddStudent addPage = new AddStudent("Add Student","Add Student","Add Student","Student Added","Back","student","stdname","stdemail","password","dob","age");
+                frame.dispose();
             }
         });
         backButton.addActionListener(e -> {
@@ -149,6 +150,7 @@ public class StudentsPage {
         deleteButton.addActionListener(e -> {
             if (deleteButton.getText().equals("Delete Student")) {
                 DeletePage delete=new DeletePage("Delete Student","Student ID","Delete Student","Deleted Student","student","stdid","Back");
+
             }
         });
 

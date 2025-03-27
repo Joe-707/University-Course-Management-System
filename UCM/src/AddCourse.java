@@ -109,6 +109,7 @@ public class AddCourse extends JFrame {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
+                CoursesPage coursesPage = new CoursesPage();
                 frame.dispose();
             }
         });
