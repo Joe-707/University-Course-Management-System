@@ -1,5 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RegistrationPageS extends JFrame {
     private JTextField fullNameField, emailField, dobField, courseIdField;
@@ -7,6 +13,7 @@ public class RegistrationPageS extends JFrame {
     private JButton registerButton;
     private JLabel title, messageLabel, fullNameLabel, emailLabel, dobLabel, courseIdLabel, passwordLabel, confirmPasswordLabel, logoLabel;
     private ImageIcon logoIcon;
+    private Person person;
 
     public RegistrationPageS() {
 
@@ -81,7 +88,7 @@ public class RegistrationPageS extends JFrame {
         registerButton.setRolloverEnabled(true);
         registerButton.setFocusPainted(false);
 
-        logoIcon = new ImageIcon("mamaslogo2.png");
+        logoIcon = new ImageIcon("images/mamaslogo2.png");
         logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(540, 140, 300, 300);
 
@@ -134,12 +141,49 @@ public class RegistrationPageS extends JFrame {
 
     }
 
-    private boolean registrationValidation(){
+    protected boolean registrationValidation(){
         String fullName = fullNameField.getText();
         String email = emailField.getText();
         String courseId = courseIdField.getText();
         String password = String.valueOf(passwordField.getPassword());
         String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
+
+        //Connection to db
+        Connection connect=null;
+        Statement stmt=null;
+        UCM_DB_Connector stdConn = new UCM_DB_Connector();
+        connect=stdConn.getConnection();
+        PreparedStatement pstmt=null;
+        try{
+            if(!fullName.isEmpty()&&!email.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
+                String query="insert into student(stdname,stdemail,password,dob,courseid,age) values(?,?,?,?,?,?)";
+                pstmt=connect.prepareStatement(query);
+                pstmt.setString(1,fullNameField.getText());
+                pstmt.setString(2,emailField.getText());
+                pstmt.setString(3,passwordField.getText());
+                String dobText = dobField.getText();
+                DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                java.util.Date utilDate = formatter.parse(dobText);
+                pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
+                pstmt.setString(5,courseIdField.getText());
+                person=new Person(fullNameField.getText(),emailField.getText(),utilDate) {
+                    @Override
+                    public int getAge(Date birthDate) {
+                        return super.getAge(birthDate);
+                    }
+                };
+                pstmt.setInt(6,person.getAge(utilDate));
+
+                pstmt.executeUpdate();
+                System.out.println("Student table updated");
+            }else {
+                System.out.println("Student table not updated");
+            }
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         if ( fullName.isEmpty() || email.isEmpty() || courseId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
             messageLabel.setForeground(Color.RED);

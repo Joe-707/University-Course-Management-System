@@ -1,7 +1,8 @@
+import java.util.*;
 public class Student extends Person {
     private String stdId;
-    public Student(String name, String email, int birthYear, int birthMonth, int birthDay) {
-        super(name, email, birthYear, birthMonth, birthDay);
+    public Student(String name, String email, Date birthDate) {
+        super(name, email, birthDate);
         this.stdId = "";
     }
 
