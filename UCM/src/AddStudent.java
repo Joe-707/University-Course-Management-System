@@ -146,9 +146,11 @@ public class AddStudent extends JFrame {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
+                StudentsPage back = new StudentsPage();
                 frame.dispose();
             }
             else if (backButton.getText().equals("Back.")) {
+                InstructorsPage back = new InstructorsPage();
                 frame.dispose();
             }
         });
@@ -182,11 +184,17 @@ public class AddStudent extends JFrame {
                         public int getAge(Date birthDate) {
                             return super.getAge(birthDate);
                         }
+
+                        @Override
+                        public void display() {
+                            super.display();
+                        }
                     };
                     pstmt.setInt(5,person.getAge(utilDate));
 
                     pstmt.executeUpdate();
                     System.out.println("Student table updated");
+                    person.display();
                 }else {
                     System.out.println("Student table not updated");
                 }

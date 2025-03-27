@@ -94,13 +94,21 @@ public class DeletePage extends JFrame {
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
                 StudentsPage back = new StudentsPage();
+                frame.dispose();
             } else if (backButton.getText().equals("Back.")) {
                 CoursesPage cback = new CoursesPage();
+                frame.dispose();
             } else if (backButton.getText().equals("Back..")) {
                 InstructorsPage back = new InstructorsPage();
+                frame.dispose();
             }
-            else {
+            else if(backButton.getText().equals("Back...")) {
                 EnrollmentPage back = new EnrollmentPage();
+                frame.dispose();
+            }
+            else if(backButton.getText().equals(".Back")) {
+                StudentMarksPage back = new StudentMarksPage();
+                frame.dispose();
             }
         });
     }
