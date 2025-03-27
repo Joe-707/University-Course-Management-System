@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 public class AnalyticsChoicePage {
     private JLabel title;
-    private JButton graph, chart, table;
+    private JButton graph, chart, table,backButton;
 
     public AnalyticsChoicePage() {
         title = new JLabel("Please click on the form of analytics you want to view:");
@@ -28,7 +28,7 @@ public class AnalyticsChoicePage {
         chart.setRolloverEnabled(true);
         chart.setFocusPainted(false);
 
-        table = new JButton("Admin");
+        table = new JButton("Table");
         table.setCursor(new Cursor(Cursor.HAND_CURSOR));
         table.setBounds(300, 100, 100, 50);
         table.setFont(new Font("SanSerif", Font.BOLD, 10));
@@ -36,6 +36,15 @@ public class AnalyticsChoicePage {
         table.setForeground(Color.WHITE);
         table.setRolloverEnabled(true);
         table.setFocusPainted(false);
+
+        backButton = new JButton("Back");
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setBounds(360, 200, 80, 30);
+        backButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        backButton.setBackground(new Color(0, 0, 0));
+        backButton.setForeground(Color.WHITE);
+        backButton.setRolloverEnabled(true);
+        backButton.setFocusPainted(false);
 
         JFrame frame = new JFrame();
 
@@ -52,6 +61,7 @@ public class AnalyticsChoicePage {
         frame.add(graph);
         frame.add(chart);
         frame.add(table);
+        frame.add(backButton);
         frame.setVisible(true);
 
         chart.addActionListener(e ->{
@@ -62,6 +72,11 @@ public class AnalyticsChoicePage {
         });
         table.addActionListener(e -> {
             TablesPage tablesPage = new TablesPage();
+        });
+        backButton.addActionListener(e -> {
+            if (backButton.getText().equals("Back")) {
+                HomePage back = new HomePage();
+            }
         });
     }
     public static void main (String[]args){
