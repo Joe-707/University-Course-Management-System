@@ -52,7 +52,7 @@ public class LoginPage extends JFrame {
         loginButton.setRolloverEnabled(true);
         loginButton.setFocusPainted(false);
 
-        logoIcon = new ImageIcon("mamaslogo2.png");
+        logoIcon = new ImageIcon("images/mamaslogo2.png");
         logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(540, 140, 300, 300);
 
@@ -108,32 +108,44 @@ public class LoginPage extends JFrame {
         connect=stdConn.getConnection();
         PreparedStatement pstmt=null;
         try{
-            if(!email.isEmpty()&&!password.isEmpty()&&password.length()>=6){
-                String query="select adminemail,password from admin where adminemail= ? and password= ?";
-                pstmt=connect.prepareStatement(query);
+            if(!email.isEmpty()&&!password.isEmpty()&&password.length()>=6) {
+                String adminQuery = "select adminemail,password from admin where adminemail= ? and password= ?";
+                pstmt = connect.prepareStatement(adminQuery);
                 pstmt.setString(1, email);
                 pstmt.setString(2, password);
-                ResultSet rs=pstmt.executeQuery();
+                ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    String adminemail = rs.getString("adminemail");
-                    String adminpassword = rs.getString("password");
-
-                    System.out.println("Admin Email: " + adminemail);
-                    System.out.println("Admin Password: " + adminpassword);
-                    System.out.println("Correct Login details");
+                    String adminEmail = rs.getString("adminemail");
+                    System.out.println("Admin Email: " + adminEmail);
+                    System.out.println("Correct Login (Admin)");
                     return true;
-
                 }
+
+                String instructorQuery="select instructoremail,password from instructor where instructoremail= ? and password= ?";
+                pstmt=connect.prepareStatement(instructorQuery);
+                pstmt.setString(1, email);
+                pstmt.setString(2, password);
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    String adminEmail = rs.getString("instructoremail");
+                    System.out.println("Instructor Email: " + adminEmail);
+                    System.out.println("Correct Login (Instructor)");
+                    return true;
+                }
+
                 else{
                     messageLabel.setForeground(Color.RED);
                     messageLabel.setText("Incorrect Email or Password.Please try again");
                     messageLabel.setVisible(true);
                     JOptionPane.showMessageDialog(null, messageLabel);
-                    System.out.println("Admin Email does not exist");
+                    System.out.println("Email does not exist");
                     return false;
                 }
-            }else {
+
+            }
+            else {
                 System.out.println("Incorrect Login details");
                 return false;
             }

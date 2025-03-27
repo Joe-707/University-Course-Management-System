@@ -7,22 +7,36 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RegistrationPageI extends JFrame {
+public class AddStudent extends JFrame {
     private JTextField fullNameField, emailField, dobField, courseIdField;
     private JPasswordField passwordField, confirmPasswordField;
-    private JButton registerButton;
+    private JButton registerButton,backButton;
     private JLabel title, messageLabel, fullNameLabel, emailLabel, dobLabel, courseIdLabel, passwordLabel, confirmPasswordLabel, logoLabel;
     private ImageIcon logoIcon;
     private Person person;
+    private String tableName;
+    private String column1;
+    private String column2;
+    private String column3;
+    private String column4;
+    private String column5;
+    private String column6;
 
-    public RegistrationPageI() {
+    public AddStudent(String titleText,String addText,String messageText,String tableName,String column1,String column2,String column3,String column4,String column5,String column6) {
+        this.tableName = tableName;
+        this.column1 = column1;
+        this.column2 = column2;
+        this.column3 = column3;
+        this.column4 = column4;
+        this.column5 = column5;
+        this.column6 = column6;
 
-        title = new JLabel("Instructor Registration Page");
+        title = new JLabel(titleText);
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
         title.setBounds(330, 50, 300, 35);
 
-        fullNameLabel = new JLabel("Full name:");
+        fullNameLabel = new JLabel("Full Name");
         fullNameLabel.setForeground(Color.WHITE);
         fullNameLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
         fullNameLabel.setBounds(75, 150, 100, 35);
@@ -79,7 +93,7 @@ public class RegistrationPageI extends JFrame {
         confirmPasswordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         confirmPasswordField.setToolTipText("Must match password");
 
-        registerButton = new JButton("Register");
+        registerButton = new JButton(addText);
         registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         registerButton.setBounds(400, 500, 150, 50);
         registerButton.setFont(new Font("SanSerif", Font.BOLD, 16));
@@ -87,6 +101,15 @@ public class RegistrationPageI extends JFrame {
         registerButton.setForeground(Color.WHITE);
         registerButton.setRolloverEnabled(true);
         registerButton.setFocusPainted(false);
+
+        backButton = new JButton("Back");
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setBounds(765, 10, 80, 30);
+        backButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        backButton.setBackground(new Color(0, 0, 0));
+        backButton.setForeground(Color.WHITE);
+        backButton.setRolloverEnabled(true);
+        backButton.setFocusPainted(false);
 
         logoIcon = new ImageIcon("images/mamaslogo2.png");
         logoLabel = new JLabel(logoIcon);
@@ -102,7 +125,7 @@ public class RegistrationPageI extends JFrame {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Instructor Registration Page");
+        frame.setTitle("Add Student");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, 900, 600);
         frame.setResizable(false);
@@ -124,6 +147,7 @@ public class RegistrationPageI extends JFrame {
         frame.add(confirmPasswordLabel);
         frame.add(confirmPasswordField);
         frame.add(registerButton);
+        frame.add(backButton);
         frame.add(title);
         frame.setVisible(true);
         frame.add(logoLabel);
@@ -131,99 +155,101 @@ public class RegistrationPageI extends JFrame {
         registerButton.addActionListener(e -> {
             if (registrationValidation()) {
                 messageLabel.setForeground(Color.GREEN);
-                messageLabel.setText("Registration Successful");
+                messageLabel.setText(messageText);
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
-                LoginPage loginPage = new LoginPage();
-                loginPage.setVisible(true);
             }
         });
-
+        backButton.addActionListener(e -> {
+            if (backButton.getText().equals("Back")) {
+                StudentsPage back = new StudentsPage();
+            }
+        });
     }
 
+        protected boolean registrationValidation(){
+            String fullName = fullNameField.getText();
+            String email = emailField.getText();
+            String courseId = courseIdField.getText();
+            String password = String.valueOf(passwordField.getPassword());
+            String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
 
-    private boolean registrationValidation(){
-        String fullName = fullNameField.getText();
-        String email = emailField.getText();
-        String courseId = courseIdField.getText();
-        String password = String.valueOf(passwordField.getPassword());
-        String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
+            //Connection to db
+            Connection connect=null;
+            Statement stmt=null;
+            UCM_DB_Connector stdConn = new UCM_DB_Connector();
+            connect=stdConn.getConnection();
+            PreparedStatement pstmt=null;
+            try{
+                if(!fullName.isEmpty()&&!email.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
+                    String query=" insert into "+ tableName +"("+ column1 +","+ column2 +","+ column3 +","+ column4 +","+ column5 +","+ column6 +") values(?,?,?,?,?,?)";
+                    pstmt=connect.prepareStatement(query);
+                    pstmt.setString(1,fullNameField.getText());
+                    pstmt.setString(2,emailField.getText());
+                    pstmt.setString(3,passwordField.getText());
+                    String dobText = dobField.getText();
+                    DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                    java.util.Date utilDate = formatter.parse(dobText);
+                    pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
+                    pstmt.setString(5,courseIdField.getText());
+                    person=new Person(fullNameField.getText(),emailField.getText(),utilDate) {
+                        @Override
+                        public int getAge(Date birthDate) {
+                            return super.getAge(birthDate);
+                        }
+                    };
+                    pstmt.setInt(6,person.getAge(utilDate));
+
+                    pstmt.executeUpdate();
+                    System.out.println("Student table updated");
+                }else {
+                    System.out.println("Student table not updated");
+                }
 
 
-        //Connection to db
-        Connection connect=null;
-        Statement stmt=null;
-        UCM_DB_Connector stdConn = new UCM_DB_Connector();
-        connect=stdConn.getConnection();
-        PreparedStatement pstmt=null;
-        try{
-            if(!fullName.isEmpty()&&!email.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
-                String query="insert into instructor(instructorname,instructoremail,password,dob,courseid,age) values(?,?,?,?,?,?)";
-                pstmt=connect.prepareStatement(query);
-                pstmt.setString(1,fullNameField.getText());
-                pstmt.setString(2,emailField.getText());
-                pstmt.setString(3,passwordField.getText());
-                String dobText = dobField.getText();
-                DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-                java.util.Date utilDate = formatter.parse(dobText);
-                pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
-                pstmt.setString(5,courseIdField.getText());
-                person=new Person(fullNameField.getText(),emailField.getText(),utilDate) {
-                    @Override
-                    public int getAge(Date birthDate) {
-                        return super.getAge(birthDate);
-                    }
-                };
-                pstmt.setInt(6,person.getAge(utilDate));
-
-                pstmt.executeUpdate();
-                System.out.println("Instructor table updated");
-            }else {
-                System.out.println("Instructor table not updated");
+            } catch (Exception e){
+                e.printStackTrace();
             }
 
-
-        } catch (Exception e){
-            e.printStackTrace();
+            if ( fullName.isEmpty() || email.isEmpty() || courseId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
+                messageLabel.setForeground(Color.RED);
+                messageLabel.setText("Please fill all the required fields");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
+                return false;
+            }
+            if (!password.equals(confirmPassword)) {
+                messageLabel.setForeground(Color.RED);
+                messageLabel.setText("Passwords do not match");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
+                return false;
+            }
+            if(password.length() < 6) {
+                messageLabel.setForeground(Color.RED);
+                messageLabel.setText("Password must be at least 6 characters");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
+                return false;
+            }
+            if(password.length() > 25) {
+                messageLabel.setForeground(Color.RED);
+                messageLabel.setText("Password cannot exceed 25 characters");
+                messageLabel.setVisible(true);
+                JOptionPane.showMessageDialog(null, messageLabel);
+                return false;
+            }
+            return true;
         }
 
 
-        if ( fullName.isEmpty() || email.isEmpty() || courseId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
-            messageLabel.setForeground(Color.RED);
-            messageLabel.setText("Please fill all the required fields");
-            messageLabel.setVisible(true);
-            JOptionPane.showMessageDialog(null, messageLabel);
-            return false;
-        }
-        if (!password.equals(confirmPassword)) {
-            messageLabel.setForeground(Color.RED);
-            messageLabel.setText("Passwords do not match");
-            messageLabel.setVisible(true);
-            JOptionPane.showMessageDialog(null, messageLabel);
-            return false;
-        }
-        if(password.length() < 6) {
-            messageLabel.setForeground(Color.RED);
-            messageLabel.setText("Password must be at least 6 characters");
-            messageLabel.setVisible(true);
-            JOptionPane.showMessageDialog(null, messageLabel);
-            return false;
-        }
-        if(password.length() > 25) {
-            messageLabel.setForeground(Color.RED);
-            messageLabel.setText("Password cannot exceed 25 characters");
-            messageLabel.setVisible(true);
-            JOptionPane.showMessageDialog(null, messageLabel);
-            return false;
-        }
-        return true;
-    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new RegistrationPageI();
+                new AddStudent("Add Student","Add Student","Student Added","student","stdname","stdemail","password","dob","courseid","age");
             }
         });
     }
 }
+

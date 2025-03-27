@@ -58,7 +58,7 @@ public class HomePage {
         analyticsButton.setBackground(new Color(0, 0, 0));
         analyticsButton.setForeground(Color.WHITE);
 
-        logoIcon = new ImageIcon("mamaslogo2small.png");
+        logoIcon = new ImageIcon("images/mamaslogo2small.png");
         logoLabel = new JLabel(logoIcon);
         logoLabel.setSize(125,125);
         logoLabel.setLocation(755, 355);
@@ -77,7 +77,6 @@ public class HomePage {
         frame.setLayout(null);
         frame.setSize(900,530);
         frame.getContentPane().setBackground(new Color(0, 0, 0));
-
         frame.add(mStudentsButton);
         frame.add(mCoursesButton);
         frame.add(mInstructorsButton);

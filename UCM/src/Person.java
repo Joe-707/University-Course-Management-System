@@ -1,19 +1,17 @@
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.*;
+import java.util.*;
+
 
 public abstract class Person {
     protected String name;
     protected String email;
-    protected int birthYear;
-    protected int birthMonth;
-    protected int birthDay;
+    protected Date birthDate;
 
-    public Person(String name, String email, int birthYear, int birthMonth, int birthDay) {
+
+    public Person(String name, String email, Date birthDate) {
         this.name = name;
         this.email = email;
-        this.birthYear = birthYear;
-        this.birthMonth = birthMonth;
-        this.birthDay = birthDay;
+        this.birthDate = birthDate;
     }
 
     public String getName() {
@@ -24,50 +22,19 @@ public abstract class Person {
         return email;
     }
 
-    public int calculateAge() {
-        int currentYear = LocalDate.now().getYear();
-        int currentMonth = LocalDate.now().getMonthValue();
-        int currentDay = LocalDate.now().getDayOfMonth();
-        int age = 0;
-        if (birthYear > 1850 && birthMonth <= 12 && birthDay <= 31) {
-            if (birthMonth > currentMonth) {
-                age = (currentYear - birthYear) - 1;
-            } else if (birthMonth == currentMonth) {
-                if (birthDay > currentDay) {
-                    age = (currentYear - birthYear) - 1;
-                } else {
-                    age = (currentYear - birthYear);
-                }
-            } else {
-                age = (currentYear - birthYear);
-            }
-        } else {
-            System.out.println("Invalid birth credentials");
-        }
-        return age;
+    public int getAge(Date birth) {
+        birth=this.birthDate;
+        LocalDate dob=birth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(dob,LocalDate.now()).getYears();
     }
-    public int getBirthYear() {
-        return birthYear;
-    }
-    public int getBirthMonth() {
-        return birthMonth;
-    }
-    public int getBirthDay() {
-        return birthDay;
-    }
-    public String getDOB(int year, int month, int day) {
-        this.birthYear = year;
-        this.birthMonth = month;
-        this.birthDay = day;
-        String dob = year + "-" + month + "-" + day;
-        return dob;
-    }
+
+
+
     public void display() {
         System.out.println("Name: " + name);
         System.out.println("Email: " + email);
-        System.out.println("Birth Year: " + birthYear);
-        System.out.println("Birth Month: " + birthMonth);
-        System.out.println("Birth Day: " + birthDay);
+        System.out.println("Birth Date: " + birthDate);
+        System.out.println("Age: " + getAge(birthDate));
 
     }
 }

@@ -149,7 +149,7 @@ public class RegistrationPageA extends JFrame {
                 pstmt.setString(1,fullNameField.getText());
                 pstmt.setString(2,emailField.getText());
                 pstmt.setString(3,passwordField.getText());
-                String dobText = dobField.getText(); // assuming "yyyy-MM-dd" format
+                String dobText = dobField.getText();
                 DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 java.util.Date utilDate = formatter.parse(dobText);
                 pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
