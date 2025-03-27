@@ -17,14 +17,13 @@ public class AddStudent extends JFrame {
     private String tableName;
     private String column1, column2, column3, column4, column5, column6;
 
-    public AddStudent(String frameText, String titleText,String addText,String messageText,String tableName,String column1,String column2,String column3,String column4,String column5,String column6) {
+    public AddStudent(String frameText, String titleText,String addText,String messageText,String backText,String tableName,String column1,String column2,String column3,String column4,String column5) {
         this.tableName = tableName;
         this.column1 = column1;
         this.column2 = column2;
         this.column3 = column3;
         this.column4 = column4;
         this.column5 = column5;
-        this.column6 = column6;
 
         title = new JLabel(titleText);
         title.setFont(new Font("Arial", Font.BOLD, 32));
@@ -59,32 +58,24 @@ public class AddStudent extends JFrame {
         dobField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         dobField.setToolTipText("yyyy/mm/dd"); //Need to figure out how to get text in date format
 
-        courseIdLabel = new JLabel("Course Id:");
-        courseIdLabel.setForeground(Color.WHITE);
-        courseIdLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        courseIdLabel.setBounds(75, 300, 100, 35);
-
-        courseIdField = new JTextField(50);
-        courseIdField.setBounds(225, 300, 250, 35);
-        courseIdField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
 
         passwordLabel = new JLabel("Password:");
         passwordLabel.setForeground(Color.WHITE);
         passwordLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        passwordLabel.setBounds(75, 350, 150, 35);
+        passwordLabel.setBounds(75, 300, 150, 35);
 
         passwordField = new JPasswordField(50);
-        passwordField.setBounds(225, 350, 250, 35);
+        passwordField.setBounds(225, 300, 250, 35);
         passwordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         passwordField.setToolTipText("Must have more than 6 characters");
 
         confirmPasswordLabel = new JLabel("Confirm Password:");
         confirmPasswordLabel.setForeground(Color.WHITE);
         confirmPasswordLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        confirmPasswordLabel.setBounds(75, 400, 150, 35);
+        confirmPasswordLabel.setBounds(75, 350, 150, 35);
 
         confirmPasswordField = new JPasswordField(50);
-        confirmPasswordField.setBounds(225, 400, 250, 35);
+        confirmPasswordField.setBounds(225, 350, 250, 35);
         confirmPasswordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         confirmPasswordField.setToolTipText("Must match password");
 
@@ -97,7 +88,7 @@ public class AddStudent extends JFrame {
         registerButton.setRolloverEnabled(true);
         registerButton.setFocusPainted(false);
 
-        backButton = new JButton("Back");
+        backButton = new JButton(backText);
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.setBounds(765, 10, 80, 30);
         backButton.setFont(new Font("SanSerif", Font.BOLD, 16));
@@ -135,8 +126,6 @@ public class AddStudent extends JFrame {
         frame.add(emailField);
         frame.add(dobLabel);
         frame.add(dobField);
-        frame.add(courseIdLabel);
-        frame.add(courseIdField);
         frame.add(passwordLabel);
         frame.add(passwordField);
         frame.add(confirmPasswordLabel);
@@ -159,13 +148,15 @@ public class AddStudent extends JFrame {
             if (backButton.getText().equals("Back")) {
                 StudentsPage back = new StudentsPage();
             }
+            else if (backButton.getText().equals("Back.")) {
+                InstructorsPage back = new InstructorsPage();
+            }
         });
     }
 
         protected boolean registrationValidation(){
             String fullName = fullNameField.getText();
             String email = emailField.getText();
-            String courseId = courseIdField.getText();
             String password = String.valueOf(passwordField.getPassword());
             String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
 
@@ -177,7 +168,7 @@ public class AddStudent extends JFrame {
             PreparedStatement pstmt=null;
             try{
                 if(!fullName.isEmpty()&&!email.isEmpty()&&!password.isEmpty()&&!confirmPassword.isEmpty()&&password.equals(confirmPassword)&&password.length()>=6){
-                    String query=" insert into "+ tableName +"("+ column1 +","+ column2 +","+ column3 +","+ column4 +","+ column5 +","+ column6 +") values(?,?,?,?,?,?)";
+                    String query=" insert into "+ tableName +"("+ column1 +","+ column2 +","+ column3 +","+ column4 +","+ column5 +") values(?,?,?,?,?)";
                     pstmt=connect.prepareStatement(query);
                     pstmt.setString(1,fullNameField.getText());
                     pstmt.setString(2,emailField.getText());
@@ -186,14 +177,13 @@ public class AddStudent extends JFrame {
                     DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                     java.util.Date utilDate = formatter.parse(dobText);
                     pstmt.setDate(4, new java.sql.Date(utilDate.getTime()));
-                    pstmt.setString(5,courseIdField.getText());
                     person=new Person(fullNameField.getText(),emailField.getText(),utilDate) {
                         @Override
                         public int getAge(Date birthDate) {
                             return super.getAge(birthDate);
                         }
                     };
-                    pstmt.setInt(6,person.getAge(utilDate));
+                    pstmt.setInt(5,person.getAge(utilDate));
 
                     pstmt.executeUpdate();
                     System.out.println("Student table updated");
@@ -206,7 +196,7 @@ public class AddStudent extends JFrame {
                 e.printStackTrace();
             }
 
-            if ( fullName.isEmpty() || email.isEmpty() || courseId.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
+            if ( fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Please fill all the required fields");
                 messageLabel.setVisible(true);
@@ -242,7 +232,7 @@ public class AddStudent extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new AddStudent("Add Student", "Add Student","Add Student","Student Added","student","stdname","stdemail","password","dob","courseid","age");
+                new AddStudent("Add Student", "Add Student","Add Student","Student Added","Back","student","stdname","stdemail","password","dob","age");
             }
         });
     }

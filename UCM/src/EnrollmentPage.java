@@ -11,6 +11,7 @@ public class EnrollmentPage {
     private JTable table;
     private JLabel title, pageLabel;
     private ImageIcon pageIcon;
+    private JButton backButton,addButton,deleteButton;
     private Object[][] fetchCourseData(){
         try{
             //Connection to db
@@ -60,6 +61,33 @@ public class EnrollmentPage {
         pageLabel.setSize(900, 506);
         pageLabel.setLocation(0, 0);
 
+        addButton = new JButton("Enroll");
+        addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addButton.setBounds(700, 330, 150, 30);
+        addButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        addButton.setBackground(new Color(0, 0, 0));
+        addButton.setForeground(Color.WHITE);
+        addButton.setRolloverEnabled(true);
+        addButton.setFocusPainted(false);
+
+        backButton = new JButton("Back");
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setBounds(765, 10, 80, 30);
+        backButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        backButton.setBackground(new Color(0, 0, 0));
+        backButton.setForeground(Color.WHITE);
+        backButton.setRolloverEnabled(true);
+        backButton.setFocusPainted(false);
+
+        deleteButton = new JButton("Unenroll");
+        deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deleteButton.setBounds(700, 390, 150, 30);
+        deleteButton.setFont(new Font("SanSerif", Font.BOLD, 16));
+        deleteButton.setBackground(new Color(0, 0, 0));
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setRolloverEnabled(true);
+        deleteButton.setFocusPainted(false);
+
         JFrame frame = new JFrame();
 
         frame.setTitle("Enrolled Students");
@@ -103,7 +131,26 @@ public class EnrollmentPage {
         frame.add(scrollPane);
         frame.add(title);
         frame.add(pageLabel);
+        pageLabel.add(addButton);
+        pageLabel.add(backButton);
+        pageLabel.add(deleteButton);
         frame.setVisible(true);
+
+        addButton.addActionListener(e -> {
+            if (addButton.getText().equals("Enroll")) {
+                Enrollments enroll = new Enrollments();
+            }
+        });
+        backButton.addActionListener(e -> {
+            if (backButton.getText().equals("Back")) {
+                HomePage back = new HomePage();
+            }
+        });
+        deleteButton.addActionListener(e -> {
+            if (deleteButton.getText().equals("Unenroll")) {
+                DeletePage delete=new DeletePage("Unenroll","Student ID","Unenroll","Unenrolled Student","enrollments","stdid","Back...");
+            }
+        });
 
 
     }

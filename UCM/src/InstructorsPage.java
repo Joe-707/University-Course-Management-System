@@ -20,7 +20,7 @@ public class InstructorsPage {
             connect=stdConn.getConnection();
             PreparedStatement pstmt=null;
 
-            String query="select instructorid,instructorname,instructoremail,age,courseid from instructor";
+            String query="select instructorid,instructorname,instructoremail,age from instructor";
             pstmt=connect.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs=pstmt.executeQuery();
 
@@ -29,7 +29,7 @@ public class InstructorsPage {
             int rowCount=rs.getRow();
             rs.beforeFirst();
 
-            Object[][] data=new Object[rowCount][5];
+            Object[][] data=new Object[rowCount][4];
             int row=0;
 
             while(rs.next()){
@@ -37,7 +37,6 @@ public class InstructorsPage {
                 data[row][1]=rs.getString("instructorname");
                 data[row][2]=rs.getString("instructoremail");
                 data[row][3]=rs.getInt("age");
-                data[row][4]=rs.getString("courseid");
                 row++;
             }
             return data;
@@ -99,7 +98,7 @@ public class InstructorsPage {
         frame.getContentPane().setBackground(new Color(0, 0, 0));
 
         //table
-        String[] columnNames = {"Instructor ID","Name","Email","Age","Course Code"};
+        String[] columnNames = {"Instructor ID","Name","Email","Age"};
         Object[][] data = fetchCourseData();
 
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
@@ -137,7 +136,7 @@ public class InstructorsPage {
 
         addButton.addActionListener(e -> {
             if (addButton.getText().equals("Add Instructor")) {
-                AddStudent add = new AddStudent("Add Instructor","Add Instructor","Add Instructor","Instructor Added","instructor","instructorname","instructoremail","password","dob","courseid","age");
+                AddStudent add = new AddStudent("Add Instructor","Add Instructor","Add Instructor","Instructor Added","Back.","instructor","instructorname","instructoremail","password","dob","age");
             }
         });
         backButton.addActionListener(e -> {
@@ -146,7 +145,7 @@ public class InstructorsPage {
             }
         });
         deleteButton.addActionListener(e -> {
-            if (deleteButton.getText().equals("Delete Course")) {
+            if (deleteButton.getText().equals("Delete Instructor")) {
                 DeletePage delete=new DeletePage("Delete Instructor","Instructor ID","Delete Instructor","Deleted Instructor","instructor","instructorid","Back..");
             }
         });

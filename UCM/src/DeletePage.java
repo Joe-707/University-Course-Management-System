@@ -41,7 +41,7 @@ public class DeletePage extends JFrame {
 
         backButton = new JButton(backText);
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backButton.setBounds(400, 10, 80, 30);
+        backButton.setBounds(10, 10, 100, 30);
         backButton.setFont(new Font("SanSerif", Font.BOLD, 16));
         backButton.setBackground(new Color(0, 0, 0));
         backButton.setForeground(Color.WHITE);
@@ -96,6 +96,11 @@ public class DeletePage extends JFrame {
                 StudentsPage back = new StudentsPage();
             } else if (backButton.getText().equals("Back.")) {
                 CoursesPage cback = new CoursesPage();
+            } else if (backButton.getText().equals("Back..")) {
+                InstructorsPage back = new InstructorsPage();
+            }
+            else {
+                EnrollmentPage back = new EnrollmentPage();
             }
         });
     }

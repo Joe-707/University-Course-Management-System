@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class AddCourse extends JFrame {
@@ -101,7 +102,7 @@ public class AddCourse extends JFrame {
         registerButton.addActionListener(e -> {
             if (registrationValidation()) {
                 messageLabel.setForeground(Color.GREEN);
-                messageLabel.setText("Student added");
+                messageLabel.setText("Course added");
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
             }
@@ -126,6 +127,21 @@ public class AddCourse extends JFrame {
         try{
             if(!courseName.isEmpty()&&!credits.isEmpty()&&!instructorId.isEmpty()){
                 double dCredits = Double.parseDouble(credits);
+
+                //InstructorCheck
+                String iQuery="select instructorid from instructor where instructorid=?";
+                PreparedStatement iCheck=connect.prepareStatement(iQuery);
+                iCheck.setString(1, instructorId);
+                ResultSet i_rs=iCheck.executeQuery();
+
+                if(!i_rs.next()){
+                    messageLabel.setForeground(Color.RED);
+                    messageLabel.setText("Instructor Not Found");
+                    messageLabel.setVisible(true);
+                    JOptionPane.showMessageDialog(null, messageLabel);
+                    System.out.println("Instructor ID does not exist");
+                    return false;
+                }
                 String query="insert into course(coursename,credits,instructorid) values(?,?,?)";
                 pstmt=connect.prepareStatement(query);
                 pstmt.setString(1,courseName);
@@ -139,7 +155,7 @@ public class AddCourse extends JFrame {
                 messageLabel.setText("Please fill all the required fields");
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
-                System.out.println("Student table not updated");
+                System.out.println("Course table not updated");
                 return false;
             }
 
