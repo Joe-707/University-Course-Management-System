@@ -104,7 +104,7 @@ public class HomePage {
         });
 
         analyticsButton.addActionListener(e -> {
-            AnalyticsPage analyticsPage = new AnalyticsPage();
+            AnalyticsChoicePage analyticsChoicePage = new AnalyticsChoicePage();
         });
 
     }

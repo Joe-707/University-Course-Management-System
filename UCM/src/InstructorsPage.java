@@ -63,7 +63,7 @@ public class InstructorsPage {
 
         addButton = new JButton("Add Instructor");
         addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addButton.setBounds(700, 330, 150, 30);
+        addButton.setBounds(700, 330, 175, 30);
         addButton.setFont(new Font("SanSerif", Font.BOLD, 16));
         addButton.setBackground(new Color(0, 0, 0));
         addButton.setForeground(Color.WHITE);
@@ -81,7 +81,7 @@ public class InstructorsPage {
 
         deleteButton = new JButton("Delete Instructor");
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        deleteButton.setBounds(700, 390, 150, 30);
+        deleteButton.setBounds(700, 390, 175, 30);
         deleteButton.setFont(new Font("SanSerif", Font.BOLD, 16));
         deleteButton.setBackground(new Color(0, 0, 0));
         deleteButton.setForeground(Color.WHITE);
@@ -90,7 +90,7 @@ public class InstructorsPage {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Courses");
+        frame.setTitle("Instructors");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocation(175, 80);
@@ -137,8 +137,7 @@ public class InstructorsPage {
 
         addButton.addActionListener(e -> {
             if (addButton.getText().equals("Add Instructor")) {
-                AddStudent add = new AddStudent("Add Instructor","Add Instructor","Instructor Added","instructor","instructorname","instructoremail","password","dob","courseid","age");
-                add.setVisible(true);
+                AddStudent add = new AddStudent("Add Instructor","Add Instructor","Add Instructor","Instructor Added","instructor","instructorname","instructoremail","password","dob","courseid","age");
             }
         });
         backButton.addActionListener(e -> {

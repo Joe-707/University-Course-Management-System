@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class AnalyticsPage {
+public class ChartsPage {
     private JTable table;
     private JLabel title, pageLabel;
     private ImageIcon pageIcon;
 
-    public AnalyticsPage() {
-        title = new JLabel("Analytics:");
+    public ChartsPage() {
+        title = new JLabel("Chart:");
         title.setFont(new Font("Tahoma", Font.BOLD, 23));
         title.setForeground(Color.WHITE);
         title.setBounds(380, 0, 300, 35);
@@ -19,7 +19,7 @@ public class AnalyticsPage {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Analytics");
+        frame.setTitle("Charts");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocation(175, 80);
@@ -37,7 +37,7 @@ public class AnalyticsPage {
     public static void main (String[]args){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void run() {new AnalyticsPage();}
+            public void run() {new ChartsPage();}
         });
     }
 }

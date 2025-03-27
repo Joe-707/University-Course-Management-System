@@ -5,14 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class RegistrationPageA extends JFrame {
-    private JTextField fullNameField, emailField, dobField, courseIdField;
+    private JTextField fullNameField, emailField, dobField;
     private JPasswordField passwordField, confirmPasswordField;
     private JButton registerButton;
-    private JLabel title, messageLabel, fullNameLabel, emailLabel, dobLabel, courseIdLabel, passwordLabel, confirmPasswordLabel, logoLabel;
+    private JLabel title, messageLabel, fullNameLabel, emailLabel, dobLabel, passwordLabel, confirmPasswordLabel, logoLabel;
     private ImageIcon logoIcon;
 
     public RegistrationPageA() {
@@ -20,53 +19,53 @@ public class RegistrationPageA extends JFrame {
         title = new JLabel("Admin Registration Page");
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
-        title.setBounds(330, 50, 300, 35);
+        title.setBounds(250, 50, 400, 35);
 
         fullNameLabel = new JLabel("Full name:");
         fullNameLabel.setForeground(Color.WHITE);
         fullNameLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        fullNameLabel.setBounds(75, 150, 100, 35);
+        fullNameLabel.setBounds(75, 170, 100, 35);
 
         fullNameField = new JTextField(50);
-        fullNameField.setBounds(225, 150, 250, 35);
+        fullNameField.setBounds(225, 170, 250, 35);
         fullNameField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
 
         emailLabel = new JLabel("Email:");
         emailLabel.setForeground(Color.WHITE);
         emailLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        emailLabel.setBounds(75, 200, 100, 35);
+        emailLabel.setBounds(75, 220, 100, 35);
 
         emailField = new JTextField(50);
-        emailField.setBounds(225, 200, 250, 35);
+        emailField.setBounds(225, 220, 250, 35);
         emailField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
 
         dobLabel = new JLabel("Date of Birth:");
         dobLabel.setForeground(Color.WHITE);
         dobLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        dobLabel.setBounds(75, 250, 100, 35);
+        dobLabel.setBounds(75, 270, 100, 35);
 
         dobField = new JTextField(50);
-        dobField.setBounds(225, 250, 250, 35);
+        dobField.setBounds(225, 270, 250, 35);
         dobField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         dobField.setToolTipText("yyyy/mm/dd"); //Need to figure out how to get text in date format
 
         passwordLabel = new JLabel("Password:");
         passwordLabel.setForeground(Color.WHITE);
         passwordLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        passwordLabel.setBounds(75, 350, 150, 35);
+        passwordLabel.setBounds(75, 320, 150, 35);
 
         passwordField = new JPasswordField(50);
-        passwordField.setBounds(225, 350, 250, 35);
+        passwordField.setBounds(225, 320, 250, 35);
         passwordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         passwordField.setToolTipText("Must have more than 6 characters");
 
         confirmPasswordLabel = new JLabel("Confirm Password:");
         confirmPasswordLabel.setForeground(Color.WHITE);
         confirmPasswordLabel.setFont(new Font("SanSerif", Font.PLAIN, 16));
-        confirmPasswordLabel.setBounds(75, 400, 150, 35);
+        confirmPasswordLabel.setBounds(75, 370, 150, 35);
 
         confirmPasswordField = new JPasswordField(50);
-        confirmPasswordField.setBounds(225, 400, 250, 35);
+        confirmPasswordField.setBounds(225, 370, 250, 35);
         confirmPasswordField.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
         confirmPasswordField.setToolTipText("Must match password");
 

@@ -20,7 +20,7 @@ public class RegistrationPageI extends JFrame {
         title = new JLabel("Instructor Registration Page");
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
-        title.setBounds(330, 50, 300, 35);
+        title.setBounds(250, 50, 500, 35);
 
         fullNameLabel = new JLabel("Full name:");
         fullNameLabel.setForeground(Color.WHITE);
