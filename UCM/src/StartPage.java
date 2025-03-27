@@ -2,40 +2,31 @@ import javax.swing.*;
 import java.awt.*;
 public class StartPage extends JFrame {
     private JLabel title;
-    private JButton student, instructor, admin;
+    private JButton register, login;
 
     public StartPage() {
-        title = new JLabel("Hello there! Please click on your Mamas University status:");
+        title = new JLabel("Hello there! Would you like to register or log in?");
         title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setForeground(Color.WHITE);
-        title.setBounds(20, 50, 400, 35);
+        title.setBounds(60, 50, 400, 35);
 
-        student = new JButton("Student");
-        student.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        student.setBounds(50, 100, 100, 50);
-        student.setFont(new Font("SanSerif", Font.BOLD, 10));
-        student.setBackground(new Color(0, 0, 0));
-        student.setForeground(Color.WHITE);
-        student.setRolloverEnabled(true);
-        student.setFocusPainted(false);
+        register = new JButton("Register");
+        register.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        register.setBounds(100, 115, 100, 50);
+        register.setFont(new Font("SanSerif", Font.BOLD, 10));
+        register.setBackground(new Color(0, 0, 0));
+        register.setForeground(Color.WHITE);
+        register.setRolloverEnabled(true);
+        register.setFocusPainted(false);
 
-        instructor = new JButton("Instructor");
-        instructor.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        instructor.setBounds(175, 100, 100, 50);
-        instructor.setFont(new Font("SanSerif", Font.BOLD, 10));
-        instructor.setBackground(new Color(0, 0, 0));
-        instructor.setForeground(Color.WHITE);
-        instructor.setRolloverEnabled(true);
-        instructor.setFocusPainted(false);
-
-        admin = new JButton("Admin");
-        admin.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        admin.setBounds(300, 100, 100, 50);
-        admin.setFont(new Font("SanSerif", Font.BOLD, 10));
-        admin.setBackground(new Color(0, 0, 0));
-        admin.setForeground(Color.WHITE);
-        admin.setRolloverEnabled(true);
-        admin.setFocusPainted(false);
+        login = new JButton("Login");
+        login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        login.setBounds(250, 115, 100, 50);
+        login.setFont(new Font("SanSerif", Font.BOLD, 10));
+        login.setBackground(new Color(0, 0, 0));
+        login.setForeground(Color.WHITE);
+        login.setRolloverEnabled(true);
+        login.setFocusPainted(false);
 
         JFrame frame = new JFrame();
 
@@ -49,18 +40,15 @@ public class StartPage extends JFrame {
         frame.getContentPane().setBackground(new Color(0, 0, 0));
 
         frame.add(title);
-        frame.add(student);
-        frame.add(instructor);
-        frame.add(admin);
+        frame.add(register);
+        frame.add(login);
         frame.setVisible(true);
 
-        student.addActionListener(e -> {
-            RegistrationPageS registrationPage = new RegistrationPageS();
+        login.addActionListener(e -> {
+            LoginPage loginPage = new LoginPage();
         });
-        instructor.addActionListener(e -> {
-            RegistrationPageI registrationPage = new RegistrationPageI();
-        });
-        admin.addActionListener(e -> {
+
+        register.addActionListener(e -> {
             RegistrationPageA registrationPage = new RegistrationPageA();
         });
     }

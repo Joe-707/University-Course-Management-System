@@ -5,7 +5,6 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class TablesPage {
     private JTable table;
@@ -119,7 +118,7 @@ public class TablesPage {
 
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                AnalyticsChoicePage back = new AnalyticsChoicePage();
+                frame.dispose();
             }
         });
         nextButton.addActionListener(e -> {

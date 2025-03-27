@@ -141,7 +141,7 @@ public class InstructorsPage {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                HomePage back = new HomePage();
+                frame.dispose();
             }
         });
         deleteButton.addActionListener(e -> {

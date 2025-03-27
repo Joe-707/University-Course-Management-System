@@ -123,7 +123,7 @@ public class RegistrationPageA extends JFrame {
                 messageLabel.setVisible(true);
                 JOptionPane.showMessageDialog(null, messageLabel);
                 LoginPage loginPage = new LoginPage();
-                loginPage.setVisible(true);
+                frame.dispose();
             }
         });
 

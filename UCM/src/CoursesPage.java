@@ -108,22 +108,19 @@ public class CoursesPage {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(50,50,800,260);
         scrollPane.getViewport().setBackground(Color.BLACK);
-        table.setBackground(Color.BLACK);            // background color
-        table.setForeground(Color.WHITE);            // text color
+        table.setBackground(Color.BLACK);
+        table.setForeground(Color.WHITE);
         table.setFont(new Font("Tahoma", Font.PLAIN, 14));
         table.setRowHeight(25);
         table.setShowGrid(false);
 
-        // Header styling
         table.getTableHeader().setBackground(Color.DARK_GRAY);
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
 
-        //centering values in the cell
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Apply to all columns
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
@@ -144,7 +141,7 @@ public class CoursesPage {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                HomePage back = new HomePage();
+                frame.dispose();
             }
         });
         deleteButton.addActionListener(e -> {

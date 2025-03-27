@@ -121,7 +121,7 @@ public class Enrollments extends JFrame {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                EnrollmentPage back = new EnrollmentPage();
+                frame.dispose();
             }
         });
     }

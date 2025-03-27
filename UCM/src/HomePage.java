@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class HomePage {
     private JLabel title, logoLabel, homeLabel;
-    private JButton mStudentsButton, mCoursesButton, mInstructorsButton, enrollButton, analyticsButton;
+    private JButton mStudentsButton, mCoursesButton, mInstructorsButton, enrollButton, analyticsButton, exitButton;
     private ImageIcon logoIcon, homeIcon;
 
     public HomePage() {
@@ -58,6 +58,15 @@ public class HomePage {
         analyticsButton.setBackground(new Color(0, 0, 0));
         analyticsButton.setForeground(Color.WHITE);
 
+        exitButton = new JButton("Exit Program");
+        exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        exitButton.setFont(new Font("SanSerif", Font.BOLD, 10));
+        exitButton.setRolloverEnabled(true);
+        exitButton.setFocusPainted(false);
+        exitButton.setBounds(10,330,130,35);
+        exitButton.setBackground(new Color(0, 0, 0));
+        exitButton.setForeground(Color.WHITE);
+
         logoIcon = new ImageIcon("images/mamaslogo2small.png");
         logoLabel = new JLabel(logoIcon);
         logoLabel.setSize(125,125);
@@ -82,6 +91,7 @@ public class HomePage {
         frame.add(mInstructorsButton);
         frame.add(enrollButton);
         frame.add(analyticsButton);
+        frame.add(exitButton);
         frame.add(title);
         frame.setVisible(true);
         frame.add(logoLabel);
@@ -105,6 +115,9 @@ public class HomePage {
 
         analyticsButton.addActionListener(e -> {
             AnalyticsChoicePage analyticsChoicePage = new AnalyticsChoicePage();
+        });
+        exitButton.addActionListener(e -> {
+            frame.dispose();
         });
 
     }

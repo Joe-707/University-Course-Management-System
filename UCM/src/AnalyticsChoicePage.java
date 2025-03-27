@@ -75,7 +75,7 @@ public class AnalyticsChoicePage {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                HomePage back = new HomePage();
+                frame.dispose();
             }
         });
     }

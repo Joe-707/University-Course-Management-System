@@ -63,7 +63,7 @@ public class ChartsPage {
 
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                AnalyticsChoicePage back = new AnalyticsChoicePage();
+                frame.dispose();
             }
         });
 

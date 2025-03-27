@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-//Changed Layout a bit, changed button names and message display to log in
 
 public class LoginPage extends JFrame {
     private JTextField  emailField;
@@ -89,6 +88,7 @@ public class LoginPage extends JFrame {
                 JOptionPane.showMessageDialog(null, messageLabel);
 
                 HomePage homePage = new HomePage();
+                frame.dispose();
             }
         });
 

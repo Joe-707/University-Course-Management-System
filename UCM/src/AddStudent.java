@@ -146,10 +146,10 @@ public class AddStudent extends JFrame {
         });
         backButton.addActionListener(e -> {
             if (backButton.getText().equals("Back")) {
-                StudentsPage back = new StudentsPage();
+                frame.dispose();
             }
             else if (backButton.getText().equals("Back.")) {
-                InstructorsPage back = new InstructorsPage();
+                frame.dispose();
             }
         });
     }
