@@ -15,14 +15,9 @@ public class AddStudent extends JFrame {
     private ImageIcon logoIcon;
     private Person person;
     private String tableName;
-    private String column1;
-    private String column2;
-    private String column3;
-    private String column4;
-    private String column5;
-    private String column6;
+    private String column1, column2, column3, column4, column5, column6;
 
-    public AddStudent(String titleText,String addText,String messageText,String tableName,String column1,String column2,String column3,String column4,String column5,String column6) {
+    public AddStudent(String frameText, String titleText,String addText,String messageText,String tableName,String column1,String column2,String column3,String column4,String column5,String column6) {
         this.tableName = tableName;
         this.column1 = column1;
         this.column2 = column2;
@@ -125,8 +120,8 @@ public class AddStudent extends JFrame {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Add Student");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle(frameText);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setBounds(0, 0, 900, 600);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -247,7 +242,7 @@ public class AddStudent extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new AddStudent("Add Student","Add Student","Student Added","student","stdname","stdemail","password","dob","courseid","age");
+                new AddStudent("Add Student", "Add Student","Add Student","Student Added","student","stdname","stdemail","password","dob","courseid","age");
             }
         });
     }

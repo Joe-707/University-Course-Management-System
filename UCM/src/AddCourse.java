@@ -3,9 +3,6 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AddCourse extends JFrame {
     private JTextField courseNameField, creditsField,instructorIdField;
@@ -81,7 +78,7 @@ public class AddCourse extends JFrame {
         JFrame frame = new JFrame();
 
         frame.setTitle("Add Course");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setBounds(0, 0, 900, 600);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);

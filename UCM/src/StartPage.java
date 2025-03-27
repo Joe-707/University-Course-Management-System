@@ -55,15 +55,12 @@ public class StartPage extends JFrame {
         frame.setVisible(true);
 
         student.addActionListener(e -> {
-            this.dispose();
             RegistrationPageS registrationPage = new RegistrationPageS();
         });
         instructor.addActionListener(e -> {
-            this.dispose();
             RegistrationPageI registrationPage = new RegistrationPageI();
         });
         admin.addActionListener(e -> {
-            this.dispose();
             RegistrationPageA registrationPage = new RegistrationPageA();
         });
     }

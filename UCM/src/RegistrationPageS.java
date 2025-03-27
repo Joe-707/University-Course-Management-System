@@ -20,7 +20,7 @@ public class RegistrationPageS extends JFrame {
         title = new JLabel("Student Registration Page");
         title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
-        title.setBounds(330, 50, 300, 35);
+        title.setBounds(250, 50, 400, 35);
 
         fullNameLabel = new JLabel("Full name:");
         fullNameLabel.setForeground(Color.WHITE);

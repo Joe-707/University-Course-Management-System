@@ -50,7 +50,7 @@ public class EnrollmentPage {
     }
 
     public EnrollmentPage() {
-        title = new JLabel("Enrollment:");
+        title = new JLabel("Enrolled Students:");
         title.setFont(new Font("Tahoma", Font.BOLD, 23));
         title.setForeground(Color.WHITE);
         title.setBounds(380, 0, 300, 35);
@@ -62,7 +62,7 @@ public class EnrollmentPage {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle("Courses");
+        frame.setTitle("Enrolled Students");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocation(175, 80);

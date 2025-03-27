@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 
@@ -63,8 +62,8 @@ public class DeletePage extends JFrame {
 
         JFrame frame = new JFrame();
 
-        frame.setTitle(titleText);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Delete");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setBounds(0, 0, 500, 300);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
