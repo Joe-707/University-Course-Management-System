@@ -149,7 +149,7 @@ public class StudentsPage {
             }
         });
         deleteButton.addActionListener(e -> {
-            if (deleteButton.getText().equals("Remove Student")) {
+            if (deleteButton.getText().equals("Delete Student")) {
                 DeletePage delete=new DeletePage("Delete Student","Student ID","Delete Student","Deleted Student","student","stdid","Back");
             }
         });
